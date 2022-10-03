@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot;
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 public class Hardware {
@@ -10,14 +10,19 @@ public class Hardware {
     public DcMotor rightMotor;
     public DcMotor liftMotor;
 
+    public Servo collectorServo;
+
     public void init (HardwareMap map) {
         //Defining variables to the physical location
         leftMotor = map.dcMotor.get("port0");
         rightMotor = map.dcMotor.get("port1");
         liftMotor = map.dcMotor.get("port2");
 
+        collectorServo = map.servo.get("port3");
+
         //Calls configureMotors() method
         configureMotors();
+        configureServos();
     }
 
     //Initializing all the motors' settings.
@@ -40,5 +45,9 @@ public class Hardware {
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    private void configureServos() {
+        collectorServo.setDierction(Servo.Direction.FOWARD);
     }
 }

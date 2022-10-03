@@ -8,9 +8,15 @@ public class Subsystem {
     public static double right_motor_command;
     public static double lift_motor_command;
 
+    public static double collector_servo_target_position;
+
     public static void set_motor_powers() {
         robot.leftMotor.setPower(left_motor_command);
         robot.rightMotor.setPower(right_motor_command);
         robot.liftMotor.setPower(lift_motor_command);
+    }
+
+    public static void set_servo_positions() {
+        robot.collectorServo.setPosition(collector_servo_target_position);
     }
 }
