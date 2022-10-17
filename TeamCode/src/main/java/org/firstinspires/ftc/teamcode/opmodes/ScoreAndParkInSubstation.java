@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Collector;
 
 // Class for the Autonomous Period of the Game Calling Methods from Subsystems in Sequence
-@Autonomous(name="Score in Front of Substation and Park in Substation", group="Autonomous")
+@Autonomous(name="Left2Substation", group="Autonomous")
 public class ScoreAndParkInSubstation extends OpMode{
     public state current_state;
     double autoSpeed = 0.3;
