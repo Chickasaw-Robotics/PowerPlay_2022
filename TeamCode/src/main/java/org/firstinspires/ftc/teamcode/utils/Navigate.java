@@ -3,9 +3,8 @@ package org.firstinspires.ftc.teamcode.utils;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.robot.Hardware;
 
-public class navigate {
+public class Navigate {
     static final double COUNTS_PER_INCH = 24.9; // Counts Previous 49.8
-    static final double STRAFE_COUNTS_PER_INCH = 31.1;
     static final double POSITION_THRESHOLD = 1.0;   // Base travel
     static final double ANGLE_THRESHOLD = 4.0;     // Degrees
     Hardware robot;
