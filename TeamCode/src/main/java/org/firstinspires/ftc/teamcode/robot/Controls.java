@@ -22,4 +22,20 @@ public abstract class Controls extends OpMode {
     public boolean getDriver2RightBumper() {
         return gamepad2.right_bumper;
     }
+
+    public boolean getDriver2A() {
+        return gamepad2.a;
+    }
+
+    public boolean getDriver2B() {
+        return gamepad2.b;
+    }
+
+    public boolean getDriver2X() {
+        return gamepad2.x;
+    }
+
+    public boolean getDriver2Y() {
+        return gamepad2.y;
+    }
 }
