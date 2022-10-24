@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.utils;
 
 
-public class Constants() {
-    static final double drivetrain_Kp = 0.1;
-    static final double drivetrain_Ki = 0.00001;
-    static final double drivetrain_Kd = 0.001;
-    static final double drivetrainAngle_Kp = 0.1;
-    static final double drivetrainAngle_Ki = 0.00001;
-    static final double drivetrainAngle_Kd = 0.001;
+public class Constants {
+    public static double auto_speed = 0.5;
+    public static double DRIVE_COUNTS_PER_IN = 30;
+
+    public static final int lift_groundPos = 0;
+    public static final int lift_lowPos = 20;
+    public static final int lift_midPos = 30;
+    public static final int lift_highPos = 40;
 }

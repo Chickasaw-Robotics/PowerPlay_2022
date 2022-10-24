@@ -37,8 +37,8 @@ public class Hardware {
 //        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Setting the direction of the motors when running.
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        rightMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
 //        liftMotor.setDirection(DcMotor.Direction.FORWARD);
 
         //Setting motors to brake if not running.
