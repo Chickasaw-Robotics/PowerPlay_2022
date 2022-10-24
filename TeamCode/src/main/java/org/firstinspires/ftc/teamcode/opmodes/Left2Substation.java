@@ -44,7 +44,7 @@ public class Left2Substation extends OpMode {
                 break;
 
             case drive_forward:
-                if (DriveTrain.driveToPosition(Constants.auto_speed, 10, 10))
+                if (DriveTrain.driveToPosition(Constants.auto_speed, 6, 6))
                     current_state = turn_right;
                 break;
 
@@ -54,7 +54,7 @@ public class Left2Substation extends OpMode {
                 break;
 
             case drive_forward2:
-                if (DriveTrain.driveToPosition(Constants.auto_speed, 10, 10))
+                if (DriveTrain.driveToPosition(Constants.auto_speed, 14, 14))
                     current_state = drop_cone;
                 break;
 
@@ -65,7 +65,7 @@ public class Left2Substation extends OpMode {
                 break; 
 
             case drive_backward:
-                if (DriveTrain.driveToPosition(Constants.auto_speed, -10, -10))
+                if (DriveTrain.driveToPosition(Constants.auto_speed, -15, -15))
                     current_state = turn_left;
                 break;
 
@@ -75,7 +75,7 @@ public class Left2Substation extends OpMode {
                 break;
 
             case park:
-                if (DriveTrain.driveToPosition(Constants.auto_speed, -10, -10))
+                if (DriveTrain.driveToPosition(Constants.auto_speed, -13, -13))
                     current_state = terminate;
                 break;
 
