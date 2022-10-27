@@ -6,18 +6,18 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Import Team Specific Libraries
-import static org.firstinspires.ftc.teamcode.opmodes.Right2Terminal.state.*;
+import static org.firstinspires.ftc.teamcode.opmodes.Left1Substation.state.*;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Collector;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 // Class for the Autonomous period of the game calling methods from subsystems in sequence
-@Autonomous(name="Right2Terminal", group="Autonomous")
-public class Right2Terminal extends OpMode {
+@Autonomous(name="Left1Substation", group="Autonomous")
+public class Left1Substation extends OpMode {
     // Declare states for the switch statement
     public state current_state;
-    enum state {
+    public enum state {
         initialize,
         drive_forward,
         turn_left,
@@ -38,7 +38,6 @@ public class Right2Terminal extends OpMode {
         // Set the starting state
         current_state = initialize;
     }
-
     public void loop() {
         // Update telemetry for debugging
         telemetry.addData("Auto State: ", current_state);
@@ -50,14 +49,13 @@ public class Right2Terminal extends OpMode {
         telemetry.addData("Left Motor Counts: ", Subsystem.robot.leftMotor.getCurrentPosition());
         telemetry.update();
 
-        // Switch state for handling autonomous sequencing
         switch (current_state) {
             case initialize:
                 current_state = drive_forward;
                 break;
 
             case drive_forward:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
                     current_state = turn_left;
                 break;
 
@@ -67,7 +65,7 @@ public class Right2Terminal extends OpMode {
                 break;
 
             case drive_forward2:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, 16, 16))
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
                     current_state = drop_cone;
                 break;
 
@@ -78,7 +76,7 @@ public class Right2Terminal extends OpMode {
                 break;
 
             case drive_backward:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -14, -14))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
                     current_state = turn_right;
                 break;
 
@@ -86,7 +84,6 @@ public class Right2Terminal extends OpMode {
                 if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, 5, -5))
                     current_state = park;
                 break;
-
 
             case park:
                 if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -23, -23))

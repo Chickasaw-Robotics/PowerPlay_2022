@@ -1,54 +1,67 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
+// Import FIRST Libraries
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.robot.Controls;
+// Import Team Specific Libraries
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.subsystems.Collector;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
-//import org.firstinspires.ftc.teamcode.subsystems.Lift;
-//import org.firstinspires.ftc.teamcode.subsystems.Collector;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.robot.Controls;
 
 @TeleOp(name = "Teleop", group = "Teleop")
 public class Teleop extends Controls {
     public void init() {
+        // Initialize hardware
         Subsystem.robot.init(hardwareMap);
+
+        // Update telemetry
         telemetry.addData("Status:", "Press Play to Start");
         telemetry.update();
     }
 
     public void loop() {
-        DriveTrain.moveDriveTrain(getDriverLeftJoystick(), getDriverRightJoystick());
-//        Lift.moveLift(getDriver2LeftJoystick());
-//
-//        if(getDriver2LeftBumper()) {
-//            Collector.openCollector();
-//        }
-//
-//        if(getDriver2RightBumper()) {
-//            Collector.closeCollector();
-//        }
+        // Driver 1 Controls
+        DriveTrain.drive(getDriverLeftJoystick(), getDriverRightJoystick());
 
-        // update telemetry
+        // Driver 2 Controls
+//        Lift.move(getDriver2LeftJoystick());
+//        if(getDriver2RightBumper())
+//            Collector.close();
+//        if(getDriver2LeftBumper())
+//            Collector.open();
+//        if(getDriver2A())
+//            Lift.liftToBot();
+//        if(getDriver2B())
+//            Lift.liftToLow();
+//        if(getDriver2X())
+//            Lift.liftToMid();
+//        if(getDriver2Y())
+//            Lift.liftToHigh();
+
+        // Update telemetry
         telemetry.addData("Status", "Teleop is running");
-        telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
+        telemetry.addData("Collector Servo Target", Subsystem.collector_servo_target);
         telemetry.addData("Right Motor Command", Subsystem.right_motor_command);
-        telemetry.addData("Left Motor Counts: ", Subsystem.robot.leftMotor.getCurrentPosition());
+        telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
+        telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);
         telemetry.addData("Right Motor Counts: ", Subsystem.robot.rightMotor.getCurrentPosition());
-
-//        telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);
-//        telemetry.addData("Collector Servo Target Position", Subsystem.collector_servo_target_position);
+        telemetry.addData("Left Motor Counts: ", Subsystem.robot.leftMotor.getCurrentPosition());
         telemetry.update();
 
-        // set motor power
+        // Update hardware with new commands and positions
         Subsystem.set_motor_powers();
-//        Subsystem.set_servo_positions();
+        Subsystem.set_servo_positions();
     }
 
     public void stop() {
-        DriveTrain.stopDriveTrain();
-//        Lift.stopLift();
-//        Collector.openCollector();
+        // Stop all subsystems
+        DriveTrain.stop();
+//        Collector.open();
+//        Lift.stop();
 
+        // Update telemetry
         telemetry.addData("Status:", "Teleop is stopped");
         telemetry.update();
     }

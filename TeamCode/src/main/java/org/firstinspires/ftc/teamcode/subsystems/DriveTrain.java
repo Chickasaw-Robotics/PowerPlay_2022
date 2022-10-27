@@ -1,57 +1,68 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-
+// Import Team Specific Libraries
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 public class DriveTrain extends Subsystem {
-    //Move Drive Train
-    public static void moveDriveTrain(double left_command, double right_command) {
+    // Drive the robot a specified number of inches
+    public static boolean driveToPosition(double power, double leftInches, double rightInches) {
+        // Create target positions
+        int rightTarget = robot.rightMotor.getCurrentPosition() + (int)(rightInches * Constants.DRIVE_COUNTS_PER_INCH);
+        int leftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftInches * Constants.DRIVE_COUNTS_PER_INCH);
+
+        // Set target position
+        robot.leftMotor.setTargetPosition(leftTarget);
+        robot.rightMotor.setTargetPosition(rightTarget);
+
+        // Run to position at the designated power
+        robot.leftMotor.setPower(power);
+        robot.rightMotor.setPower(power);
+
+        // Wait until both motors are no longer busy running to position
+        while (robot.leftMotor.isBusy() || robot.rightMotor.isBusy())
+            System.out.println("Driving to " + leftInches + ", " + rightInches);
+
+        // Set motor power back to 0
+        robot.leftMotor.setPower(0);
+        robot.rightMotor.setPower(0);
+
+        // Return true to indicate success
+        return true;
+    }
+
+    // Turn the robot a specified number of degrees
+    public static boolean turnToPosition(double power, double degrees) {
+        int rightTarget = robot.rightMotor.getCurrentPosition() + (int)(-degrees * Constants.DRIVE_COUNTS_PER_DEGREE);
+        int leftTarget = robot.leftMotor.getCurrentPosition() + (int)(degrees * Constants.DRIVE_COUNTS_PER_DEGREE);
+
+        // Set target position
+        robot.leftMotor.setTargetPosition(leftTarget);
+        robot.rightMotor.setTargetPosition(rightTarget);
+
+        // Run to position at the designated power
+        robot.leftMotor.setPower(power);
+        robot.rightMotor.setPower(power);
+
+        // Wait until both motors are no longer busy running to position
+        while (robot.leftMotor.isBusy() || robot.rightMotor.isBusy())
+            System.out.println("Turning to " + degrees);
+
+        // Set motor power back to 0
+        robot.leftMotor.setPower(0);
+        robot.rightMotor.setPower(0);
+
+        // Return true to indicate success
+        return true;
+    }
+
+    // Set motor commands to a specified power [-1.0, 1.0]
+    public static void drive(double left_command, double right_command) {
         left_motor_command = left_command;
         right_motor_command = right_command;
     }
 
-    //TODO Turn Command
-
-    //TODO Drive Direction
-
-
-    //TODO Drive to Position
-    public static boolean driveToPosition(double power, double leftInches, double rightInches) {
-        int rightTarget;
-        int leftTarget;
-
-        // Create target positions
-        rightTarget = Subsystem.robot.rightMotor.getCurrentPosition() + (int)(rightInches * Constants.DRIVE_COUNTS_PER_IN);
-        leftTarget = Subsystem.robot.leftMotor.getCurrentPosition() + (int)(leftInches * Constants.DRIVE_COUNTS_PER_IN);
-
-        // Set target position
-        Subsystem.robot.leftMotor.setTargetPosition(leftTarget);
-        Subsystem.robot.rightMotor.setTargetPosition(rightTarget);
-
-        // Switch to run to position mode
-        Subsystem.robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Subsystem.robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // Run to position at the designated power
-        Subsystem.robot.leftMotor.setPower(power);
-        Subsystem.robot.rightMotor.setPower(power);
-
-        // Wait until both motors are no longer busy running to position
-        while ( (Subsystem.robot.leftMotor.isBusy() || Subsystem.robot.rightMotor.isBusy())) {
-            System.out.println("Driving to " + leftInches + ", " + rightInches);
-        }
-
-        // Set motor power back to 0
-        Subsystem.robot.leftMotor.setPower(0);
-        Subsystem.robot.rightMotor.setPower(0);
-
-        // Return true to indicate we are done
-        return true;
-    }
-
-    // Stop the Drive Train
-    public static void stopDriveTrain() {
+    // Set motor commands to 0
+    public static void stop() {
         left_motor_command = 0;
         right_motor_command = 0;
     }

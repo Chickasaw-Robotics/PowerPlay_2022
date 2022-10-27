@@ -1,13 +1,16 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+// Import Team Specific Libraries
+import org.firstinspires.ftc.teamcode.utils.Constants;
+
 public class Collector extends Subsystem {
-    // open the collector
-    public static void openCollector() {
-//        collector_servo_target_position = 100;
+    // Set the collector to open position
+    public static void open() {
+        collector_servo_target = Constants.COLLECTOR_OPEN_POS;
     } 
 
-    // close the collector
-    public static void closeCollector() {
-//        collector_servo_target_position = 0;
+    // Set the collector to close position
+    public static void close() {
+        collector_servo_target = Constants.COLLECTOR_CLOSE_POS;
     } 
 }

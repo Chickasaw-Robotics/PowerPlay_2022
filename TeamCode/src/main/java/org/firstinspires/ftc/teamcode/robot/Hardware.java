@@ -1,53 +1,55 @@
 package org.firstinspires.ftc.teamcode.robot;
+
+// Import FIRST Libraries
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
-//import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Hardware {
-    //Declaring the variables in the class.
-    public DcMotor leftMotor;
+    // Declare hardware variables
+    public Servo collectorServo;
     public DcMotor rightMotor;
-//    public DcMotor liftMotor;
-
-//    public Servo collectorServo;
+    public DcMotor leftMotor;
+    public DcMotor liftMotor;
 
     public void init (HardwareMap map) {
-        //Defining variables to the physical location
-        leftMotor = map.dcMotor.get("port0");
+        // Tie hardware variables to their ports
+//        collectorServo = map.servo.get("port3");
         rightMotor = map.dcMotor.get("port1");
+        leftMotor = map.dcMotor.get("port0");
 //        liftMotor = map.dcMotor.get("port2");
 
-//        collectorServo = map.servo.get("port3");
-
-        //Calls configureMotors() method
+        // Configure robot hardware
         configureMotors();
 //        configureServos();
     }
 
-    //Initializing all the motors' settings.
+    // Initialize all the motor settings.
     private void configureMotors() {
-        //Setting the motors to run using the encoders.
-        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // Reset encoder counts
         rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // Set the motors to run using the encoders
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //        liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //Setting the direction of the motors when running.
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        // Set the direction of the motors
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
 //        liftMotor.setDirection(DcMotor.Direction.FORWARD);
 
-        //Setting motors to brake if not running.
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // Set motors to brake if not running
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    // Initialize all the servo settings
     private void configureServos() {
-//        collectorServo.setDirection(Servo.Direction.FOWARD);
+        // Set the direction of the servo
+//        collectorServo.setDirection(Servo.Direction.FORWARD);
     }
 }
