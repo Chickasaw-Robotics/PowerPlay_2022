@@ -26,19 +26,19 @@ public class Teleop extends Controls {
         DriveTrain.drive(getDriverLeftJoystick(), getDriverRightJoystick());
 
         // Driver 2 Controls
-//        Lift.move(getDriver2LeftJoystick());
-//        if(getDriver2RightBumper())
-//            Collector.close();
-//        if(getDriver2LeftBumper())
-//            Collector.open();
-//        if(getDriver2A())
-//            Lift.liftToBot();
-//        if(getDriver2B())
-//            Lift.liftToLow();
-//        if(getDriver2X())
-//            Lift.liftToMid();
-//        if(getDriver2Y())
-//            Lift.liftToHigh();
+        Lift.move(getDriver2LeftJoystick());
+        if(getDriver2RightBumper())
+            Collector.close();
+        if(getDriver2LeftBumper())
+            Collector.open();
+        if(getDriver2A())
+            Lift.liftToBot();
+        if(getDriver2B())
+            Lift.liftToLow();
+        if(getDriver2X())
+            Lift.liftToMid();
+        if(getDriver2Y())
+            Lift.liftToHigh();
 
         // Update telemetry
         telemetry.addData("Status", "Teleop is running");
@@ -46,8 +46,10 @@ public class Teleop extends Controls {
         telemetry.addData("Right Motor Command", Subsystem.right_motor_command);
         telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
         telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);
-        telemetry.addData("Right Motor Counts: ", Subsystem.robot.rightMotor.getCurrentPosition());
-        telemetry.addData("Left Motor Counts: ", Subsystem.robot.leftMotor.getCurrentPosition());
+        telemetry.addData("Collector Servo Pos: ", Subsystem.robot.collectorServo.getPosition());
+        telemetry.addData("Right Motor Pos: ", Subsystem.robot.rightMotor.getCurrentPosition());
+        telemetry.addData("Left Motor Pos: ", Subsystem.robot.leftMotor.getCurrentPosition());
+        telemetry.addData("Lift Motor Pos: ", Subsystem.robot.liftMotor.getCurrentPosition());
         telemetry.update();
 
         // Update hardware with new commands and positions
@@ -58,8 +60,7 @@ public class Teleop extends Controls {
     public void stop() {
         // Stop all subsystems
         DriveTrain.stop();
-//        Collector.open();
-//        Lift.stop();
+        Lift.stop();
 
         // Update telemetry
         telemetry.addData("Status:", "Teleop is stopped");
