@@ -6,11 +6,11 @@ import org.firstinspires.ftc.teamcode.utils.Constants;
 public class Collector extends Subsystem {
     // Set the collector to open position
     public static void open() {
-        collector_servo_target = Constants.COLLECTOR_OPEN_POS;
+        robot.collectorServo.setPosition(Constants.COLLECTOR_OPEN_POS);
     } 
 
     // Set the collector to close position
     public static void close() {
-        collector_servo_target = Constants.COLLECTOR_CLOSE_POS;
+         robot.collectorServo.setPosition(Constants.COLLECTOR_CLOSE_POS);
     } 
 }

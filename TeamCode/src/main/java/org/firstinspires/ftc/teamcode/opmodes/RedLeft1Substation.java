@@ -41,7 +41,7 @@ public class RedLeft1Substation extends OpMode {
     public void loop() {
         // Update telemetry for debugging
         telemetry.addData("Auto State: ", current_state);
-        telemetry.addData("Collector Servo Target", Subsystem.collector_servo_target);
+        telemetry.addData("Collector Servo Target", Subsystem.robot.collectorServo.getPosition());
         telemetry.addData("Right Motor Command", Subsystem.right_motor_command);
         telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
         telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);
@@ -51,6 +51,7 @@ public class RedLeft1Substation extends OpMode {
 
         switch (current_state) {
             case initialize:
+                Collector.close();
                 current_state = drive_forward;
                 break;
 
@@ -60,7 +61,7 @@ public class RedLeft1Substation extends OpMode {
                 break;
 
             case turn_right:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, 5, -5))
+                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
                     current_state = drive_backward;
                 break;
 
@@ -71,7 +72,7 @@ public class RedLeft1Substation extends OpMode {
 
             case drop_cone:
                 DriveTrain.stop();
-//                Collector.open();
+                Collector.open();
                 current_state = drive_backward2;
                 break;
 
@@ -81,7 +82,7 @@ public class RedLeft1Substation extends OpMode {
                 break;
 
             case turn_left:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -5, 5))
+                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, -90))
                     current_state = park;
                 break;
 

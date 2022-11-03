@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Import Team Specific Libraries
 import static org.firstinspires.ftc.teamcode.opmodes.Right3Terminal.state.*;
+
+import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Collector;
@@ -42,7 +44,7 @@ public class Right3Terminal extends OpMode {
     public void loop() {
         // Update telemetry for debugging
         telemetry.addData("Auto State: ", current_state);
-        telemetry.addData("Collector Servo Target", Subsystem.collector_servo_target);
+        telemetry.addData("Collector Servo Target", Subsystem.robot.collectorServo.getPosition());
         telemetry.addData("Right Motor Command", Subsystem.right_motor_command);
         telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
         telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);
@@ -53,42 +55,43 @@ public class Right3Terminal extends OpMode {
         // Switch state for handling autonomous sequencing
         switch (current_state) {
             case initialize:
+                Collector.close();
                 current_state = drive_forward;
                 break;
 
             case drive_forward:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 20, 20))
                     current_state = turn_left;
                 break;
 
             case turn_left:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -5, 5))
+                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, -90))
                     current_state = drive_backward;
                 break;
 
             case drive_backward:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -14, -14))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -30, -30))
                     current_state = drop_cone;
                 break;
 
             case drop_cone:
                 DriveTrain.stop();
-//                Collector.open();
+                Collector.open();
                 current_state = drive_backward2;
                 break;
 
             case drive_backward2:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -3, -3))
                     current_state = turn_right;
                 break;
 
             case turn_right:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, 5, -5))
+                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
                     current_state = park;
                 break;
 
             case park:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -23, -23))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
                     current_state = terminate;
                 break;
 

@@ -2,14 +2,12 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 // Import FIRST Libraries
 import org.firstinspires.ftc.teamcode.robot.Hardware;
-import org.firstinspires.ftc.teamcode.utils.Constants;
 
 public class Subsystem {
     // Create a robot instance
     public static Hardware robot = new Hardware();
 
     // Declare motor and servo commands and target positions respectively
-    public static double collector_servo_target = Constants.COLLECTOR_OPEN_POS;
     public static double right_motor_command;
     public static double left_motor_command;
     public static double lift_motor_command;
@@ -19,10 +17,5 @@ public class Subsystem {
         robot.leftMotor.setPower(left_motor_command);
         robot.rightMotor.setPower(right_motor_command);
         robot.liftMotor.setPower(lift_motor_command);
-    }
-
-    // Set servo positions based on their respective targets
-    public static void set_servo_positions() {
-        robot.collectorServo.setPosition(collector_servo_target);
     }
 }

@@ -42,7 +42,7 @@ public class Teleop extends Controls {
 
         // Update telemetry
         telemetry.addData("Status", "Teleop is running");
-        telemetry.addData("Collector Servo Target", Subsystem.collector_servo_target);
+        telemetry.addData("Collector Servo Target", Subsystem.robot.collectorServo.getPosition());
         telemetry.addData("Right Motor Command", Subsystem.right_motor_command);
         telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
         telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);
@@ -54,7 +54,6 @@ public class Teleop extends Controls {
 
         // Update hardware with new commands and positions
         Subsystem.set_motor_powers();
-        Subsystem.set_servo_positions();
     }
 
     public void stop() {

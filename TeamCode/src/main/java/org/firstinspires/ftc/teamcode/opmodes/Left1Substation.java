@@ -41,7 +41,7 @@ public class Left1Substation extends OpMode {
     public void loop() {
         // Update telemetry for debugging
         telemetry.addData("Auto State: ", current_state);
-        telemetry.addData("Collector Servo Target", Subsystem.collector_servo_target);
+        telemetry.addData("Collector Servo Target", Subsystem.robot.collectorServo.getPosition());
         telemetry.addData("Right Motor Command", Subsystem.right_motor_command);
         telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
         telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);
