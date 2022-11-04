@@ -57,8 +57,8 @@ public class DriveTrain extends Subsystem {
 
     // Set motor commands to a specified power [-1.0, 1.0]
     public static void drive(double left_command, double right_command) {
-        left_motor_command = left_command;
-        right_motor_command = right_command;
+        left_motor_command = Math.abs(left_command) > Constants.DRIVE_SPEED ? left_command > 0 ? Constants.DRIVE_SPEED : -Constants.DRIVE_SPEED : left_command;
+        right_motor_command = Math.abs(right_command) > Constants.DRIVE_SPEED ? right_command > 0 ? Constants.DRIVE_SPEED : -Constants.DRIVE_SPEED : right_command;
     }
 
     // Set motor commands to 0

@@ -21,5 +21,6 @@ public class Constants {
     public static String LEFT_MOTOR_PORT = "left";
     public static String LIFT_MOTOR_PORT = "lift";
 
+    public static double DRIVE_SPEED = 0.4;
     public static double LIFT_SPEED = 0.2;
 }
