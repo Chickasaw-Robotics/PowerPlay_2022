@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.utils;
 
 public class Constants {
     // Auto variables
-    public static double DRIVE_COUNTS_PER_DEGREE = 8.1;
-    public static double DRIVE_COUNTS_PER_INCH = 54.28;
+    public static double DRIVE_COUNTS_PER_DEGREE = 33.18; //Changed since gears were changed
+    public static double DRIVE_COUNTS_PER_INCH = 248.875; //Changed since gears were changed
     public static double LIFT_COUNTS_PER_INCH = 57.50;
-    public static double AUTO_SPEED = 0.25;
+    public static double AUTO_SPEED = 0.5; //Changed since gears were changed
 
     // Preset positions
     public static final double COLLECTOR_CLOSE_POS = 1.0;
