@@ -21,7 +21,8 @@ public class TestAuto extends OpMode {
         initialize,
         drive_forward,
         turn_left,
-        turn_right,
+//        turn_right,
+        park,
         terminate
     }
 
@@ -51,17 +52,22 @@ public class TestAuto extends OpMode {
                 break;
 
             case drive_forward:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 10, 10))
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, -1, -1)) //Testing how the turn would work with the robot facing backward.
                     current_state = turn_left;
                 break;
 
             case turn_left:
-                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, -90))
-                    current_state = turn_right;
+                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
+                    current_state = park;
                 break;
 
-            case turn_right:
-                if(DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
+//            case turn_right:
+//                if(DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
+//                    current_state = terminate;
+//                break;
+
+            case park:
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
                     current_state = terminate;
                 break;
 
