@@ -6,15 +6,15 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Import Team Specific Libraries
-import static org.firstinspires.ftc.teamcode.opmodes.RedLeft1Substation.state.*;
+import static org.firstinspires.ftc.teamcode.opmodes.RedLeft1Terminal.state.*;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Collector;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 // Class for the Autonomous period of the game calling methods from subsystems in sequence
-@Autonomous(name="RedLeft1Substation", group="Autonomous")
-public class RedLeft1Substation extends OpMode {
+@Autonomous(name="RedLeft1Terminal", group="Autonomous")
+public class RedLeft1Terminal extends OpMode {
     // Declare states for the switch statement
     public state current_state;
     public enum state {
@@ -23,8 +23,6 @@ public class RedLeft1Substation extends OpMode {
         turn_right,
         drive_backward,
         drop_cone,
-        drive_backward2,
-        turn_left,
         park,
         terminate
     }
@@ -51,43 +49,33 @@ public class RedLeft1Substation extends OpMode {
 
         switch (current_state) {
             case initialize:
-                Collector.close();
+//                Collector.close();
                 current_state = drive_forward;
                 break;
 
             case drive_forward:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
-                    current_state = turn_left;
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 20, 20))
+                    current_state = turn_right;
                 break;
 
             case turn_right:
-                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
+                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, 52))
                     current_state = drive_backward;
                 break;
 
             case drive_backward:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
                     current_state = drop_cone;
                 break;
 
             case drop_cone:
                 DriveTrain.stop();
-                Collector.open();
-                current_state = drive_backward2;
-                break;
-
-            case drive_backward2:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
-                    current_state = turn_left;
-                break;
-
-            case turn_left:
-                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, -90))
-                    current_state = park;
+//                Collector.open();
+                current_state = park;
                 break;
 
             case park:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -23, -23))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -10, -10))
                     current_state = terminate;
                 break;
 
@@ -97,3 +85,4 @@ public class RedLeft1Substation extends OpMode {
         }
     }
 }
+/*We have completely tested this autonomous and with a few tweaks after the collector is placed, it will work perfectly for Red Alliance matches!*/

@@ -25,8 +25,6 @@ public class Right3Terminal extends OpMode {
         turn_left,
         drive_backward,
         drop_cone,
-        drive_backward2,
-        turn_right,
         park,
         terminate
     }
@@ -65,33 +63,23 @@ public class Right3Terminal extends OpMode {
                 break;
 
             case turn_left:
-                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, -90))
+                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, -52))
                     current_state = drive_backward;
                 break;
 
             case drive_backward:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -30, -30))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
                     current_state = drop_cone;
                 break;
 
             case drop_cone:
                 DriveTrain.stop();
                 Collector.open();
-                current_state = drive_backward2;
-                break;
-
-            case drive_backward2:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -3, -3))
-                    current_state = turn_right;
-                break;
-
-            case turn_right:
-                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
-                    current_state = park;
+                current_state = park;
                 break;
 
             case park:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -10, -10))
                     current_state = terminate;
                 break;
 
@@ -101,3 +89,4 @@ public class Right3Terminal extends OpMode {
         }
     }
 }
+/*We have completely tested this autonomous and with a few tweaks after the collector is placed, it will work perfectly for Blue Alliance matches!*/
