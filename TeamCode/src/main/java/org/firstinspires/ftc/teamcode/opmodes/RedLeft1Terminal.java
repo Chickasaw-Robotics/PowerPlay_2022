@@ -8,12 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 // Import Team Specific Libraries
 import static org.firstinspires.ftc.teamcode.opmodes.RedLeft1Terminal.state.*;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Collector;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
+import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 // Class for the Autonomous period of the game calling methods from subsystems in sequence
-@Autonomous(name="RedLeft1Terminal", group="Autonomous")
+@Autonomous(name="Red L1T", group="Autonomous")
 public class RedLeft1Terminal extends OpMode {
     // Declare states for the switch statement
     public state current_state;
@@ -49,7 +50,7 @@ public class RedLeft1Terminal extends OpMode {
 
         switch (current_state) {
             case initialize:
-//                Collector.close();
+                Collector.open();
                 current_state = drive_forward;
                 break;
 
@@ -75,7 +76,7 @@ public class RedLeft1Terminal extends OpMode {
                 break;
 
             case park:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -10, -10))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -20, -20))
                     current_state = terminate;
                 break;
 
@@ -83,6 +84,16 @@ public class RedLeft1Terminal extends OpMode {
                 DriveTrain.stop();
                 break;
         }
+    }
+
+    public void stop() {
+        // Stop all subsystems
+        DriveTrain.stop();
+        Lift.stop();
+
+        // Update telemetry
+        telemetry.addData("Status:", "Auto is stopped");
+        telemetry.update();
     }
 }
 /*We have completely tested this autonomous and with a few tweaks after the collector is placed, it will work perfectly for Red Alliance matches!*/

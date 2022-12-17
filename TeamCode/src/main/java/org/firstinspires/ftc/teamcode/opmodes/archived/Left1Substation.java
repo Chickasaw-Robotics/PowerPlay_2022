@@ -1,29 +1,30 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.archived;
 
 // Import FIRST Libraries
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Import Team Specific Libraries
-import static org.firstinspires.ftc.teamcode.opmodes.RedRight3Terminal.state.*;
+import static org.firstinspires.ftc.teamcode.opmodes.archived.Left1Substation.state.*;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
-import org.firstinspires.ftc.teamcode.subsystems.Collector;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 // Class for the Autonomous period of the game calling methods from subsystems in sequence
-@Autonomous(name="RedRight3Terminal", group="Autonomous")
-public class RedRight3Terminal extends OpMode {
+@Autonomous(name="Left1Substation", group="Autonomous")
+@Disabled
+public class Left1Substation extends OpMode {
     // Declare states for the switch statement
     public state current_state;
     public enum state {
         initialize,
         drive_forward,
         turn_left,
-        drive_backward,
+        drive_forward2,
         drop_cone,
-        drive_backward2,
+        drive_backward,
         turn_right,
         park,
         terminate
@@ -38,7 +39,6 @@ public class RedRight3Terminal extends OpMode {
         // Set the starting state
         current_state = initialize;
     }
-
     public void loop() {
         // Update telemetry for debugging
         telemetry.addData("Auto State: ", current_state);
@@ -50,7 +50,6 @@ public class RedRight3Terminal extends OpMode {
         telemetry.addData("Left Motor Counts: ", Subsystem.robot.leftMotor.getCurrentPosition());
         telemetry.update();
 
-        // Switch state for handling autonomous sequencing
         switch (current_state) {
             case initialize:
                 current_state = drive_forward;
@@ -63,21 +62,21 @@ public class RedRight3Terminal extends OpMode {
 
             case turn_left:
                 if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -5, 5))
-                    current_state = drive_backward;
+                    current_state = drive_forward2;
                 break;
 
-            case drive_backward:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -14, -14))
+            case drive_forward2:
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
                     current_state = drop_cone;
                 break;
 
             case drop_cone:
                 DriveTrain.stop();
 //                Collector.open();
-                current_state = drive_backward2;
+                current_state = drive_backward;
                 break;
 
-            case drive_backward2:
+            case drive_backward:
                 if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
                     current_state = turn_right;
                 break;

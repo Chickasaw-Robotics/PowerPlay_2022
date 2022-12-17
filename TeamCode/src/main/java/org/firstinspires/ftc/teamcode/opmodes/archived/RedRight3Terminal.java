@@ -1,27 +1,31 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.archived;
 
 // Import FIRST Libraries
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Import Team Specific Libraries
-import static org.firstinspires.ftc.teamcode.opmodes.TestAuto.state.*;
+import static org.firstinspires.ftc.teamcode.opmodes.archived.RedRight3Terminal.state.*;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
-import org.firstinspires.ftc.teamcode.subsystems.Collector;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 // Class for the Autonomous period of the game calling methods from subsystems in sequence
-@Autonomous(name="TestAuto", group="Autonomous")
-public class TestAuto extends OpMode {
+@Autonomous(name="RedRight3Terminal", group="Autonomous")
+@Disabled
+public class RedRight3Terminal extends OpMode {
     // Declare states for the switch statement
     public state current_state;
     public enum state {
         initialize,
         drive_forward,
         turn_left,
-//        turn_right,
+        drive_backward,
+        drop_cone,
+        drive_backward2,
+        turn_right,
         park,
         terminate
     }
@@ -35,6 +39,7 @@ public class TestAuto extends OpMode {
         // Set the starting state
         current_state = initialize;
     }
+
     public void loop() {
         // Update telemetry for debugging
         telemetry.addData("Auto State: ", current_state);
@@ -46,28 +51,45 @@ public class TestAuto extends OpMode {
         telemetry.addData("Left Motor Counts: ", Subsystem.robot.leftMotor.getCurrentPosition());
         telemetry.update();
 
+        // Switch state for handling autonomous sequencing
         switch (current_state) {
             case initialize:
                 current_state = drive_forward;
                 break;
 
             case drive_forward:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, -1, -1)) //Testing how the turn would work with the robot facing backward.
+                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 6, 6))
                     current_state = turn_left;
                 break;
 
             case turn_left:
-                if (DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -5, 5))
+                    current_state = drive_backward;
+                break;
+
+            case drive_backward:
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -14, -14))
+                    current_state = drop_cone;
+                break;
+
+            case drop_cone:
+                DriveTrain.stop();
+//                Collector.open();
+                current_state = drive_backward2;
+                break;
+
+            case drive_backward2:
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
+                    current_state = turn_right;
+                break;
+
+            case turn_right:
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, 5, -5))
                     current_state = park;
                 break;
 
-//            case turn_right:
-//                if(DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
-//                    current_state = terminate;
-//                break;
-
             case park:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, -15, -15))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -23, -23))
                     current_state = terminate;
                 break;
 

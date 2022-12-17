@@ -1,20 +1,21 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.archived;
 
 // Import FIRST Libraries
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Import Team Specific Libraries
-import static org.firstinspires.ftc.teamcode.opmodes.Right2Terminal.state.*;
+import static org.firstinspires.ftc.teamcode.opmodes.archived.RedRight2Terminal.state.*;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
-import org.firstinspires.ftc.teamcode.subsystems.Collector;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 // Class for the Autonomous period of the game calling methods from subsystems in sequence
-@Autonomous(name="Right2Terminal", group="Autonomous")
-public class Right2Terminal extends OpMode {
+@Autonomous(name="RedRight2Terminal", group="Autonomous")
+@Disabled
+public class RedRight2Terminal extends OpMode {
     // Declare states for the switch statement
     public state current_state;
     enum state {

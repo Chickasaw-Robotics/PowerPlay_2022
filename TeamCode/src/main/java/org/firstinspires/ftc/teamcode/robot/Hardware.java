@@ -41,7 +41,7 @@ public class Hardware {
 
         // Set the direction of the motors
         rightMotor.setDirection(DcMotor.Direction.FORWARD); //Flipped because drivetrain changed and motors attached wrong
-        leftMotor.setDirection(DcMotor.Direction.REVERSE); //Flipped because drivetrain changed and mototrs attached wrong
+        leftMotor.setDirection(DcMotor.Direction.REVERSE); //Flipped because drivetrain changed and motors attached wrong
         liftMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set motors to brake if not running

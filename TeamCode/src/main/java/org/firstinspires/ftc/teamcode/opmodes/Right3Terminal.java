@@ -8,14 +8,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 // Import Team Specific Libraries
 import static org.firstinspires.ftc.teamcode.opmodes.Right3Terminal.state.*;
 
-import org.checkerframework.checker.units.qual.C;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Collector;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 // Class for the Autonomous period of the game calling methods from subsystems in sequence
-@Autonomous(name="Right3Terminal", group="Autonomous")
+@Autonomous(name="Blue R3T", group="Autonomous")
 public class Right3Terminal extends OpMode {
     // Declare states for the switch statement
     public state current_state;
@@ -53,7 +53,7 @@ public class Right3Terminal extends OpMode {
         // Switch state for handling autonomous sequencing
         switch (current_state) {
             case initialize:
-                Collector.close();
+                Collector.open();
                 current_state = drive_forward;
                 break;
 
@@ -79,7 +79,7 @@ public class Right3Terminal extends OpMode {
                 break;
 
             case park:
-                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -10, -10))
+                if (DriveTrain.driveToPosition(Constants.AUTO_SPEED, -20, -20))
                     current_state = terminate;
                 break;
 
@@ -87,6 +87,16 @@ public class Right3Terminal extends OpMode {
                 DriveTrain.stop();
                 break;
         }
+    }
+
+    public void stop() {
+        // Stop all subsystems
+        DriveTrain.stop();
+        Lift.stop();
+
+        // Update telemetry
+        telemetry.addData("Status:", "Auto is stopped");
+        telemetry.update();
     }
 }
 /*We have completely tested this autonomous and with a few tweaks after the collector is placed, it will work perfectly for Blue Alliance matches!*/

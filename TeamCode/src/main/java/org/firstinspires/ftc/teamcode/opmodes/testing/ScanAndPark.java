@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.opmodes;
+package org.firstinspires.ftc.teamcode.opmodes.testing;
 
-import static org.firstinspires.ftc.teamcode.opmodes.ScanAndPark.state.*;
+import static org.firstinspires.ftc.teamcode.opmodes.testing.ScanAndPark.state.*;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import java.util.List;
 
 @Autonomous(name="ScanAndPark", group="Autonomous")
+@Disabled
 public class ScanAndPark extends OpMode {
     // Load the pre-made tensorflow model for image detection
     private static final String TFOD_MODEL_ASSET = "PowerPlay.tflite";

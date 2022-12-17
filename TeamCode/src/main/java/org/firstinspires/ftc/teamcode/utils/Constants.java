@@ -8,8 +8,8 @@ public class Constants {
     public static double AUTO_SPEED = 0.5; //Changed since gears were changed
 
     // Preset positions
-    public static final double COLLECTOR_CLOSE_POS = 1.0;
-    public static final double COLLECTOR_OPEN_POS = 0.8;
+    public static final double COLLECTOR_CLOSE_POS = 0.6;
+    public static final double COLLECTOR_OPEN_POS = 1.0;
     public static final int LIFT_HIGH_POS = 35;
     public static final int LIFT_MID_POS = 25;
     public static final int LIFT_LOW_POS = 15;
