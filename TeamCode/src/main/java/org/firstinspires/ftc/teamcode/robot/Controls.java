@@ -39,4 +39,8 @@ public abstract class Controls extends OpMode {
     public boolean getDriver2Y() {
         return gamepad2.y;
     }
+
+    public double getDriver2RightJoystick() {
+        return gamepad2.right_stick_x;
+    }
 }

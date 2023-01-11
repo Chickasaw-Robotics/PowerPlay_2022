@@ -39,10 +39,15 @@ public class Teleop extends Controls {
             Lift.liftToMid();
         if(getDriver2Y())
             Lift.liftToHigh();
+        if(getDriver2RightJoystick() > 0)
+            Collector.turnRight();
+        if(getDriver2RightJoystick() < 0)
+            Collector.turnLeft();
 
         // Update telemetry
         telemetry.addData("Status", "Teleop is running");
         telemetry.addData("Collector Servo Target", Subsystem.robot.collectorServo.getPosition());
+        telemetry.addData("Turn Collector Servo Target", Subsystem.robot.turnCollectorServo.getPosition());
         telemetry.addData("Right Motor Command", Subsystem.right_motor_command);
         telemetry.addData("Left Motor Command", Subsystem.left_motor_command);
         telemetry.addData("Lift Motor Command", Subsystem.lift_motor_command);

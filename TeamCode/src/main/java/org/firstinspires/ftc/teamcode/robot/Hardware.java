@@ -11,12 +11,14 @@ import org.firstinspires.ftc.teamcode.utils.Constants;
 public class Hardware {
     // Declare hardware variables
     public Servo collectorServo;
+    public Servo turnCollectorServo;
     public DcMotor rightMotor;
     public DcMotor leftMotor;
     public DcMotor liftMotor;
 
     public void init (HardwareMap map) {
         // Tie hardware variables to their ports
+        turnCollectorServo = map.servo.get(Constants.TURN_COLLECTOR_SERVO);
         collectorServo = map.servo.get(Constants.COLLECTOR_SERVO_PORT);
         rightMotor = map.dcMotor.get(Constants.RIGHT_MOTOR_PORT);
         leftMotor = map.dcMotor.get(Constants.LEFT_MOTOR_PORT);
@@ -54,5 +56,6 @@ public class Hardware {
     private void configureServos() {
         // Set the direction of the servo
         collectorServo.setDirection(Servo.Direction.FORWARD);
+        turnCollectorServo.setDirection(Servo.Direction.FORWARD);
     }
 }
