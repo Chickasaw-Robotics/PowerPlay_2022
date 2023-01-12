@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.utils.Constants;
 
 import java.util.List;
 
@@ -46,9 +47,9 @@ public class ScanAndPark extends OpMode {
         initialize,
         scan,
         drive_forward,
-        park1,
-        park2,
-        park3,
+        park_in_zone1,
+        park_in_zone2,
+        park_in_zone3,
         terminate
     }
 
@@ -120,21 +121,32 @@ public class ScanAndPark extends OpMode {
 
             case drive_forward:
                 if (zone == 1)
-                    current_state = park1;
+                    current_state = park_in_zone1;
                 else if (zone == 2)
-                    current_state = park2;
+                    current_state = park_in_zone2;
                 else if (zone == 3)
-                    current_state = park3;
+                    current_state = park_in_zone3;
 
-            case park1:
+            case park_in_zone1:
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 4, 4);
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED,-90);
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED,19,19);
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED,90);
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 24, 24);
                 current_state = terminate;
                 break;
 
-            case park2:
+            case park_in_zone2:
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 27, 27);
                 current_state = terminate;
                 break;
 
-            case park3:
+            case park_in_zone3:
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 4, 4);
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90);
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 19,19);
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED,-90);
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 24,24);
                 current_state = terminate;
 
             case terminate:
