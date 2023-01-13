@@ -39,9 +39,9 @@ public class Teleop extends Controls {
             Lift.liftToMid();
         if(getDriver2Y())
             Lift.liftToHigh();
-        if(getDriver2LeftTrigger() < 0 || getDriver2LeftTrigger() > 0)
+        if(getDriver2LeftTrigger() < 0)
             Collector.turnLeft();
-        if(getDriver2RightTrigger() < 0 || getDriver2RightTrigger() > 0)
+        if(getDriver2RightTrigger() < 0)
             Collector.turnRight();
 
         // Update telemetry
