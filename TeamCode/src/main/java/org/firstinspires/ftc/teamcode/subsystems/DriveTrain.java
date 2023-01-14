@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 // Import Team Specific Libraries
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 public class DriveTrain extends Subsystem {
@@ -10,6 +12,7 @@ public class DriveTrain extends Subsystem {
         int rightTarget = robot.rightMotor.getCurrentPosition() + (int)(rightInches * Constants.DRIVE_COUNTS_PER_INCH);
         int leftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftInches * Constants.DRIVE_COUNTS_PER_INCH);
 
+
         // Set target position
         robot.leftMotor.setTargetPosition(leftTarget);
         robot.rightMotor.setTargetPosition(rightTarget);
@@ -17,6 +20,9 @@ public class DriveTrain extends Subsystem {
         // Run to position at the designated power
         robot.leftMotor.setPower(power);
         robot.rightMotor.setPower(power);
+
+        Subsystem.robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Subsystem.robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // Wait until both motors are no longer busy running to position
         while (robot.leftMotor.isBusy() || robot.rightMotor.isBusy())
@@ -42,6 +48,9 @@ public class DriveTrain extends Subsystem {
         // Run to position at the designated power
         robot.leftMotor.setPower(power);
         robot.rightMotor.setPower(power);
+
+        Subsystem.robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Subsystem.robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // Wait until both motors are no longer busy running to position
         while (robot.leftMotor.isBusy() || robot.rightMotor.isBusy())

@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 // Import Team Specific Libraries
-import org.firstinspires.ftc.teamcode.robot.Controls;
-import org.firstinspires.ftc.teamcode.robot.Hardware;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 public class Collector extends Subsystem {
@@ -19,5 +17,6 @@ public class Collector extends Subsystem {
     //get servo position, if going one direction add or subtract from it
 
     public static void turnLeft() { robot.turnCollectorServo.setPosition(robot.turnCollectorServo.getPosition() - Constants.TURN_SERVO_INCREMENT);}
+
     public static void turnRight() { robot.turnCollectorServo.setPosition(robot.turnCollectorServo.getPosition() + Constants.TURN_SERVO_INCREMENT);}
 }

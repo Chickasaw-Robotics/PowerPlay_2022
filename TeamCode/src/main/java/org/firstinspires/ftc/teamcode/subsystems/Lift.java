@@ -7,15 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 public class Lift extends Subsystem {
-    // Automatically move the lift to the high position
-    public static void liftToHigh() {
-        robot.liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.liftMotor.setTargetPosition((int)(Constants.LIFT_HIGH_POS * Constants.LIFT_COUNTS_PER_INCH));
-        robot.liftMotor.setPower(Constants.LIFT_SPEED);
-        while(robot.liftMotor.isBusy())
-            System.out.println("Lifting to High");
-        robot.liftMotor.setPower(0);
-    }
 
     // Automatically move the lift to the mid position
     public static void liftToMid() {
