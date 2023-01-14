@@ -36,7 +36,7 @@ public abstract class Controls extends OpMode {
         return gamepad2.y;
     }
 
-    public double getDriver2RightJoystick() {
-        return gamepad2.right_stick_x;
-    }
+    public float getDriver2LeftTrigger() {return gamepad2.left_trigger;}
+
+    public float getDriver2RightTrigger() {return gamepad2.right_trigger;}
 }
