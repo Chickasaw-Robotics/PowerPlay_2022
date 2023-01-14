@@ -35,10 +35,8 @@ public class Teleop extends Controls {
             Lift.liftToBot();
         if(getDriver2B())
             Lift.liftToLow();
-        if(getDriver2X())
-            Lift.liftToMid();
         if(getDriver2Y())
-            Lift.liftToHigh();
+            Lift.liftToMid();
         if(getDriver2LeftTrigger() < 0)
             Collector.turnLeft();
         if(getDriver2RightTrigger() < 0)
