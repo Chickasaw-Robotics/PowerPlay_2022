@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes;
 
 import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.teamcode.opmodes.ScanAndPark.state.*;
+import static org.firstinspires.ftc.teamcode.subsystems.Subsystem.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.Came
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.subsystems.Lift;
 import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
@@ -22,6 +24,25 @@ import java.util.List;
 
 @Autonomous(name="ScanAndPark", group="Autonomous")
 public class ScanAndPark extends OpMode {
+    private static volatile boolean stopRequested = false;
+
+    public static final void idle() {
+        Thread.yield();
+    }
+
+    public static final boolean isStopRequested() {
+        return stopRequested || Thread.currentThread().isInterrupted();
+    }
+
+    public static final boolean opModeIsActive() {
+        boolean isActive = !isStopRequested();
+        if (isActive) {
+            idle();
+        }
+
+        return isActive;
+    }
+
     // Load the pre-made tensorflow model for image detection
     private static final String TFOD_MODEL_ASSET = "FC_POWERPLAY_V3.tflite";
 
@@ -64,7 +85,8 @@ public class ScanAndPark extends OpMode {
 
     public void init() {
         // Initialize robot hardware
-        Subsystem.robot.init(hardwareMap);
+        robot.init(hardwareMap);
+        stopRequested = false;
 
         // Initialize vision engine
         initVuforia();
@@ -87,6 +109,10 @@ public class ScanAndPark extends OpMode {
     }
 
     public void loop() {
+        if(!opModeIsActive()) {
+            current_state = terminate;
+        }
+
         if (tfod != null) {
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
@@ -111,7 +137,6 @@ public class ScanAndPark extends OpMode {
 
         switch (current_state) {
             case initialize:
-                sleep(500);
                 current_state = scan;
                 break;
 
@@ -120,80 +145,128 @@ public class ScanAndPark extends OpMode {
                     case "CIRCUIT":
                         telemetry.addLine("CIRCUIT LABEL CHOSEN");
                         telemetry.update();
-                        sleep(500);
                         current_state = z1_drive1;
                         break;
                     case "THINGY":
                         telemetry.addLine("THINGY LABEL CHOSEN");
                         telemetry.update();
-                        sleep(500);
                         current_state = z2_park;
                         break;
                     case "BOLT":
                         telemetry.addLine("BOLT LABEL CHOSEN");
                         telemetry.update();
-                        sleep(500);
                         current_state = z3_drive1;
                         break;
                 }
                 break;
 
             case z1_drive1:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 4, 4))
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 4, 4);
+                if(!DriveTrain.isMovingToPosition())
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z1_turn1;
                 break;
 
             case z1_turn1:
-                if(DriveTrain.turnToPosition(Constants.AUTO_SPEED,-90))
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED,-90);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z1_drive2;
+                }
                 break;
 
             case z1_drive2:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED,19,19))
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED,19,19);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z1_turn2;
+                }
                 break;
 
             case z1_turn2:
-                if(DriveTrain.turnToPosition(Constants.AUTO_SPEED,90))
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED,90);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z1_park;
+                }
                 break;
 
             case z1_park:
 
             case z3_park:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 24, 24))
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 24, 24);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = terminate;
+                }
                 break;
 
             case z2_park:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 27, 27))
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 27, 27);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = terminate;
+                }
                 break;
 
             case z3_drive1:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED, 4, 4))
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED, 4, 4);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z3_turn1;
+                }
                 break;
 
             case z3_turn1:
-                if(DriveTrain.turnToPosition(Constants.AUTO_SPEED, 90))
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED, 110);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z3_drive2;
+                }
                 break;
 
             case z3_drive2:
-                if(DriveTrain.driveToPosition(Constants.AUTO_SPEED,19,19))
+                DriveTrain.driveToPosition(Constants.AUTO_SPEED,23,23);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z3_turn2;
+                }
                 break;
 
             case z3_turn2:
-                if(DriveTrain.turnToPosition(Constants.AUTO_SPEED,-90))
+                DriveTrain.turnToPosition(Constants.AUTO_SPEED,-90);
+                if(!DriveTrain.isMovingToPosition()) {
+                    robot.leftMotor.setPower(0);
+                    robot.rightMotor.setPower(0);
                     current_state = z3_park;
+                }
                 break;
 
             case terminate:
                 DriveTrain.stop();
                 break;
         }
+    }
+
+    public void stop() {
+        stopRequested = true;
+
+        // Stop all subsystems
+        DriveTrain.stop();
+        Lift.stop();
+
+        // Update telemetry
+        telemetry.addData("Status:", "Auto is stopped");
+        telemetry.update();
     }
 
     private void initVuforia() {
