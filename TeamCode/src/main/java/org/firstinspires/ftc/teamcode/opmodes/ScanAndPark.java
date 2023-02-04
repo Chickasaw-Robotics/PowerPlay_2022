@@ -24,25 +24,6 @@ import java.util.List;
 
 @Autonomous(name="ScanAndPark", group="Autonomous")
 public class ScanAndPark extends OpMode {
-    private static volatile boolean stopRequested = false;
-
-    public static final void idle() {
-        Thread.yield();
-    }
-
-    public static final boolean isStopRequested() {
-        return stopRequested || Thread.currentThread().isInterrupted();
-    }
-
-    public static final boolean opModeIsActive() {
-        boolean isActive = !isStopRequested();
-        if (isActive) {
-            idle();
-        }
-
-        return isActive;
-    }
-
     // Load the pre-made tensorflow model for image detection
     private static final String TFOD_MODEL_ASSET = "FC_POWERPLAY_V3.tflite";
 
@@ -57,9 +38,9 @@ public class ScanAndPark extends OpMode {
 
     // Create the labels for image detection
     private static final String[] LABELS = {
-        "BOLT",
-        "CIRCUIT",
-        "THINGY"
+        "Bolt",
+        "Circuit",
+        "Thingy"
     };
 
     // Declare states for the switch statement
@@ -86,7 +67,6 @@ public class ScanAndPark extends OpMode {
     public void init() {
         // Initialize robot hardware
         robot.init(hardwareMap);
-        stopRequested = false;
 
         // Initialize vision engine
         initVuforia();
@@ -109,10 +89,6 @@ public class ScanAndPark extends OpMode {
     }
 
     public void loop() {
-        if(!opModeIsActive()) {
-            current_state = terminate;
-        }
-
         if (tfod != null) {
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
@@ -142,17 +118,17 @@ public class ScanAndPark extends OpMode {
 
             case scan:
                 switch (label) {
-                    case "CIRCUIT":
+                    case "Circuit":
                         telemetry.addLine("CIRCUIT LABEL CHOSEN");
                         telemetry.update();
                         current_state = z1_drive1;
                         break;
-                    case "THINGY":
+                    case "Thingy":
                         telemetry.addLine("THINGY LABEL CHOSEN");
                         telemetry.update();
                         current_state = z2_park;
                         break;
-                    case "BOLT":
+                    case "Bolt":
                         telemetry.addLine("BOLT LABEL CHOSEN");
                         telemetry.update();
                         current_state = z3_drive1;
@@ -162,10 +138,11 @@ public class ScanAndPark extends OpMode {
 
             case z1_drive1:
                 DriveTrain.driveToPosition(Constants.AUTO_SPEED, 4, 4);
-                if(!DriveTrain.isMovingToPosition())
+                if(!DriveTrain.isMovingToPosition()) {
                     robot.leftMotor.setPower(0);
                     robot.rightMotor.setPower(0);
                     current_state = z1_turn1;
+                }
                 break;
 
             case z1_turn1:
@@ -258,8 +235,6 @@ public class ScanAndPark extends OpMode {
     }
 
     public void stop() {
-        stopRequested = true;
-
         // Stop all subsystems
         DriveTrain.stop();
         Lift.stop();

@@ -32,7 +32,9 @@ public class Lift extends Subsystem {
         robot.liftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         if(robot.liftMotor.getCurrentPosition() > 8000)
             lift_motor_command = Math.min(0, command);
-        else
+        else if (robot.liftMotor.getCurrentPosition() < 0) {
+            lift_motor_command = Math.max(command, 0);
+        } else
             lift_motor_command = command;
     }
 

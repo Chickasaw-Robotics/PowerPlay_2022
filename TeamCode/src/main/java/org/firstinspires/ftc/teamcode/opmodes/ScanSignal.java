@@ -55,9 +55,9 @@ public class ScanSignal extends LinearOpMode {
 
 
     private static final String[] LABELS = {
-            "CIRCUIT",
-            "THINGY",
-            "BOLT"
+            "Bolt",
+            "Circuit",
+            "Thingy"
     };
 
     /*

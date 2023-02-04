@@ -23,7 +23,13 @@ public class Teleop extends Controls {
 
     public void loop() {
         // Driver 1 Controls
-        DriveTrain.drive(Math.pow(getDriverLeftJoystick(), 3), Math.pow(getDriverRightJoystick(), 3));
+        DriveTrain.drive(Math.pow(getDriverLeftJoystickY(), 3), Math.pow(getDriverLeftJoystickY(), 3));
+        if(getDriverRightJoystickX() < 0) {
+            DriveTrain.drive(Math.pow(getDriverRightJoystickX(), 3), 0);
+        }
+        if(getDriverRightJoystickX() > 0) {
+            DriveTrain.drive(0, Math.pow(getDriverRightJoystickX(), 3));
+        }
 
         // Driver 2 Controls
         Lift.move(getDriver2LeftJoystick());
