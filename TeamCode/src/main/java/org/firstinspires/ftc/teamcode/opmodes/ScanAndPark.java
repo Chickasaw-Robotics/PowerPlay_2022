@@ -1,23 +1,18 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
-import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.teamcode.opmodes.ScanAndPark.state.*;
 import static org.firstinspires.ftc.teamcode.subsystems.Subsystem.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
-import org.firstinspires.ftc.teamcode.subsystems.Subsystem;
 import org.firstinspires.ftc.teamcode.utils.Constants;
 
 import java.util.List;
@@ -45,7 +40,6 @@ public class ScanAndPark extends OpMode {
 
     // Declare states for the switch statement
     public state current_state;
-    public int zone = 2;
     String label = "";
     public enum state {
         initialize,

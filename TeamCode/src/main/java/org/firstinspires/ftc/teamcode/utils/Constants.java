@@ -10,8 +10,6 @@ public class Constants {
     // Preset positions
     public static final double COLLECTOR_CLOSE_POS = 0.55;
     public static final double COLLECTOR_OPEN_POS = 1.0;
-
-    public static final double LIFT_MAX_POS = 13.5;
     public static final double LIFT_LOW_POS = 13.5;
     public static final double LIFT_BOT_POS = 0;
 
